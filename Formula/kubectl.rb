@@ -21,7 +21,9 @@ class Kubectl < Formula
       ENV['CGO_CFLAGS'] = "-I#{Formula['jq'].opt_include}"
       ENV['CGO_LDFLAGS'] = "-L#{Formula['jq'].opt_lib}"
 
-      system 'go', 'build', *std_go_args(output: bin / 'kubectl-opslevel', ldflags: '-s -w'), './src'
+      cd 'src' do
+        system 'go', 'build', *std_go_args(output: bin / 'kubectl-opslevel', ldflags: '-s -w')
+      end
     end
 
     if Hardware::CPU.arm?
